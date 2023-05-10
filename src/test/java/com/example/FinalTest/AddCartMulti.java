@@ -24,8 +24,8 @@ public class AddCartMulti {
   public void setUp() throws Exception {
     System.setProperty("webdriver.chrome.driver", "drivers/chromedriver.exe");
     driver = new ChromeDriver();
-    baseUrl = "https://www.google.com/";
-    driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+    baseUrl = "http://magento-demo.lexiconn.com/";
+    driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     js = (JavascriptExecutor) driver;
   }
 

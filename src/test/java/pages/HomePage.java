@@ -14,7 +14,7 @@ public class HomePage {
         PageFactory.initElements(driver,this);
     }
 
-    @FindBy(name = "search")
+    @FindBy(name = "q")
     private WebElement searchBar;
 
     public ProductSearchPage search(String product){
