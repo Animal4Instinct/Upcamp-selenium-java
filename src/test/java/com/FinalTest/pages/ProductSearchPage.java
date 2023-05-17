@@ -28,6 +28,10 @@ public class ProductSearchPage extends HomePage {
     private WebElement SearchBreadcrumb;
     @FindBy(className = "price")
     private WebElement SearchPrice;
+    @FindBy(name = "Add to Cart")
+    private WebElement addToCart;
+    @FindBy(className = "skip-link skip-cart ")
+    private WebElement openCart;
 
     public ProductSearchPage(WebDriver driver) { super(driver);   }
 
@@ -80,6 +84,18 @@ public class ProductSearchPage extends HomePage {
         return SearchPrice.getText();
     }
 
+    @Step("Click on Add to Cart")
+    public void clickAddToCart() {
+     //   addToCart.click();
+        WebElement addProduct = driver.findElement(By.className("AddToCart"));
+        addProduct.click();
+    }
+
+    @Step("Click on Open Cart")
+    public void clickOpenToCart() {
+        openCart.click();
+    }
+
     @Step("Get the search breadcrumb")
     public String getSearchBreadcrumb() {
         return SearchBreadcrumb.getText();
@@ -89,7 +105,15 @@ public class ProductSearchPage extends HomePage {
     public ProductPage clickProduct(String product) {
         WebElement productLink = driver.findElement(By.linkText(product));
         productLink.click();
-        //   return new ProductPage(driver);
+        return new ProductPage(driver, product);
+    }
+
+    @Step("Verify product on cart")
+    public bool isOnTheCart() {
+        WebElement product = driver.findElement(By.class("product-name"), "Gramercy Throw");
+
+        WebElement productLink = driver.findElement(By.linkText(product));
+        productLink.click();
         return new ProductPage(driver, product);
     }
 
