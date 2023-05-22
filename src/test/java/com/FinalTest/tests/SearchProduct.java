@@ -32,8 +32,8 @@ public class SearchProduct {
     ProductSearchPage productSearchPage = headerPage.search(product);  //2- Buscar un determinado(producto)
 
     ProductPage productPage = productSearchPage.clickProduct(product);    //3- Clickear el primer producto
-    Assert.assertEquals(productPage.getProductName(), product, "No es el producto correcto");  //4- Verificar si coincide con el producto buscado y el precio.
-    Assert.assertEquals(productPage.getPrice(), price, "No es el precio correcto");
+    Assert.assertEquals(productPage.getProductName(), product, "Es el producto correcto");  //4- Verificar si coincide con el producto buscado y el precio.
+    Assert.assertEquals(productPage.getPrice(), price, "Es el precio correcto");
 
   }
   @AfterMethod

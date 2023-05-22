@@ -10,6 +10,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import static org.mockito.internal.matchers.text.ValuePrinter.print;
 import static org.testng.Assert.assertEquals;
 
 public class AddCart {
@@ -26,18 +27,14 @@ public class AddCart {
   public void testAddCart() {
     driver.get("http://magento-demo.lexiconn.com");     //1- Ingresar a:http://magento-demo.lexiconn.com/
     HeaderPage headerPage = new HeaderPage(driver);
-    String product="GRAMERCY THROW";
-    ProductSearchPage productSearchPage = headerPage.search(product);  //2- Buscar GRAMERCY THROW
+    String product="Retro Chic Eyeglasses";
+    ProductSearchPage productSearchPage = headerPage.search(product);  //2- Buscar GRETRO CHIC EYEGLASSES
     String price = productSearchPage.getPrice();
-    assertEquals(price, "$275.00", "El precio no coincide"); //3- Verificar Precio
+    assertEquals(price, "$295.00", "El precio coincide"); //3- Verificar Precio
     productSearchPage.clickAddToCart();  //4- Añadir al carrito
     productSearchPage.clickOpenToCart(); // 5 - Abrir el carrito
-    assertEquals(driver.findElement(By.xpath("//ul[@id='cart-sidebar']/li/div/table/tbody/tr/td/span")).getText(), "$275.00");
-    assertEquals(driver.findElement(By.xpath("//ul[@id='cart-sidebar']/li/div/table/tbody/tr/td/span")).getText(), "$275.00");
-    //5- Verificar que esté en el carrito
-
-
-    assertEquals(driver.findElement(By.xpath("//ul[@id='cart-sidebar']/li/div/table/tbody/tr/td/span")).getText(), "$275.00");
+    boolean test = true;
+    assertEquals(productSearchPage.isOnTheCart("Retro Chic Eyeglasses"),test, "Fue añadido al carrito con exito"); // 4- Verificar si  está en el carrito
   }
 
   @AfterMethod

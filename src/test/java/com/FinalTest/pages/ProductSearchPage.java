@@ -12,6 +12,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 import java.util.List;
 
+import static org.testng.Assert.assertEquals;
+
 
 public class ProductSearchPage extends HomePage {
     @FindBy(css = ".products-grid .product-name")
@@ -30,6 +32,8 @@ public class ProductSearchPage extends HomePage {
     private WebElement SearchPrice;
     @FindBy(name = "Add to Cart")
     private WebElement addToCart;
+    @FindBy(name = "product-name")
+    private WebElement nameProductAdded;
     @FindBy(className = "skip-link skip-cart ")
     private WebElement openCart;
 
@@ -96,6 +100,11 @@ public class ProductSearchPage extends HomePage {
         openCart.click();
     }
 
+    @Step("Get nameProductAdded")
+    public String getNameProductAdded() {
+        return nameProductAdded.getText();
+    }
+
     @Step("Get the search breadcrumb")
     public String getSearchBreadcrumb() {
         return SearchBreadcrumb.getText();
@@ -109,12 +118,14 @@ public class ProductSearchPage extends HomePage {
     }
 
     @Step("Verify product on cart")
-    public bool isOnTheCart() {
-        WebElement product = driver.findElement(By.class("product-name"), "Gramercy Throw");
-
-        WebElement productLink = driver.findElement(By.linkText(product));
-        productLink.click();
-        return new ProductPage(driver, product);
+    public boolean isOnTheCart(String productName) {
+       this.clickOpenToCart();
+        String nameProductAdded= getNameProductAdded();
+        if (nameProductAdded == productName)
+        {
+            return true;
+        }
+        return false;
     }
 
     @Step("Wait for search results")
