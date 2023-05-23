@@ -2,7 +2,9 @@ package com.FinalTest.tests;
 
 import com.FinalTest.pages.HeaderPage;
 import com.FinalTest.pages.ProductSearchPage;
-import org.openqa.selenium.By;
+import io.qameta.allure.Attachment;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -10,7 +12,6 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import static org.mockito.internal.matchers.text.ValuePrinter.print;
 import static org.testng.Assert.assertEquals;
 
 public class AddCart {
@@ -37,6 +38,15 @@ public class AddCart {
     assertEquals(productSearchPage.isOnTheCart("Retro Chic Eyeglasses"),test, "Fue añadido al carrito con exito"); // 4- Verificar si  está en el carrito
   }
 
+  @Attachment(type = "image/png")
+  @AfterMethod(alwaysRun = true)
+  public byte[] takeScreenshot(){
+    byte[] image;
+      TakesScreenshot screenshot = (TakesScreenshot) driver;
+      image = screenshot.getScreenshotAs(OutputType.BYTES);
+      System.out.println("Successfully captured a screenshot");
+    return image;
+  }
   @AfterMethod
   public void tearDown() {
     driver.close();

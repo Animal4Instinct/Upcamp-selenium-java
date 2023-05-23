@@ -4,6 +4,9 @@ import com.FinalTest.dataProviders.ProductsData;
 import com.FinalTest.pages.HeaderPage;
 import com.FinalTest.pages.ProductPage;
 import com.FinalTest.pages.ProductSearchPage;
+import io.qameta.allure.Attachment;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -35,6 +38,15 @@ public class SearchProduct {
     Assert.assertEquals(productPage.getProductName(), product, "Es el producto correcto");  //4- Verificar si coincide con el producto buscado y el precio.
     Assert.assertEquals(productPage.getPrice(), price, "Es el precio correcto");
 
+  }
+  @Attachment(type = "image/png")
+  @AfterMethod(alwaysRun = true)
+  public byte[] takeScreenshot(){
+    byte[] image;
+    TakesScreenshot screenshot = (TakesScreenshot) driver;
+    image = screenshot.getScreenshotAs(OutputType.BYTES);
+    System.out.println("Successfully captured a screenshot");
+    return image;
   }
   @AfterMethod
   public void tearDown() {
